@@ -13,3 +13,13 @@ let joinAndDisplayLocalStream = async () => {
     client.on('user-published', () => {
         console.log('User has joined our room!')
     })
+
+
+    UID = await client.join(APP_ID, CHANNEL, TOKEN, null)
+
+    localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
+
+    let player = `<div class="video-container" id="user-container- ${UID}">
+                            <div class="username-wrapper"><span class="user-name">My Name</span></div>
+                               <div class="video-player" id="user-${UID}"></div>
+                        </div>`
