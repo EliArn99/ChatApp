@@ -17,3 +17,19 @@ def lobby(request):
 def room(request):
     return render(request, 'base/room.html')
 
+
+def getToken(request):
+    appId = "YOUR APP ID"
+    appCertificate = "YOUR APP CERTIFICATE"
+    channelName = request.GET.get('channel')
+    uid = random.randint(1, 230)
+    expirationTimeInSeconds = 3600
+    currentTimeStamp = int(time.time())
+    privilegeExpiredTs = currentTimeStamp + expirationTimeInSeconds
+    role = 1
+
+    token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, channelName, uid, role, privilegeExpiredTs)
+
+    return JsonResponse({'token': token, 'uid': uid}, safe=False)
+
+
